@@ -106,6 +106,25 @@
     to   { transform: rotate(360deg); }
   }
 
+  /* Hero entrance — single lightweight fade-up, GPU only */
+  @keyframes hero-in {
+    from { opacity: 0; transform: translate3d(0, 18px, 0); }
+    to   { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+  .hero-in {
+    opacity: 0;
+    animation: hero-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .hero-d1 { animation-delay: 0.05s; }
+  .hero-d2 { animation-delay: 0.15s; }
+  .hero-d3 { animation-delay: 0.25s; }
+  .hero-d4 { animation-delay: 0.35s; }
+  .hero-d5 { animation-delay: 0.45s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-in { animation: none; opacity: 1; }
+  }
+
   .animate-float      { animation: float 3.5s ease-in-out infinite; }
   .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
   .animate-spin-slow  { animation: spin-slow 8s linear infinite; }
