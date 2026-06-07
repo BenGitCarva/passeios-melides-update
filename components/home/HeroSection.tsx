@@ -26,6 +26,7 @@ const fadeIn = {
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [heroHeight, setHeroHeight] = useState<number | null>(null);
 
   useEffect(() => {
     const check = () => setIsDesktop(window.innerWidth >= 768);
@@ -33,6 +34,10 @@ export default function HeroSection() {
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
+
+  useEffect(() => {
+    setHeroHeight(window.innerHeight); // capture once, never update
+  }, []); // empty deps = runs once on mount only
 
   const { scrollY } = useScroll();
   const bgY = useTransform(scrollY, [0, 600], ["0%", "20%"]);
@@ -42,7 +47,8 @@ export default function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative h-[100svh] md:h-[100dvh] min-h-[640px] flex items-end overflow-hidden"
+      className="relative h-[100svh] min-h-[640px] md:h-[100dvh] flex items-end overflow-hidden"
+      style={!isDesktop && heroHeight ? { height: `${heroHeight}px` } : undefined}
       aria-label="Secção principal — Passeios a Cavalo Melides"
     >
       {/* Background image with parallax (parallax disabled on mobile to prevent layout shift) */}
@@ -54,7 +60,7 @@ export default function HeroSection() {
           fill
           priority
           className="block md:hidden"
-          style={{ objectFit: "cover", objectPosition: "10% 45%" }}
+          style={{ objectFit: "cover", objectPosition: "left center" }}
           sizes="100vw"
         />
         {/* Desktop: imagem landscape com os dois cavaleiros na praia */}
@@ -80,7 +86,7 @@ export default function HeroSection() {
       {/* Content */}
       <motion.div
         className="relative z-10 container pb-16 md:pb-28 w-full"
-        style={{ y: contentY, opacity }}
+        style={isDesktop ? { y: contentY, opacity } : {}}
         variants={stagger}
         initial="hidden"
         animate="show"
@@ -92,7 +98,7 @@ export default function HeroSection() {
             <span className="text-cream/90 text-xs font-medium tracking-wide">Melides, Alentejo Litoral</span>
           </div>
           <motion.div
-            className="flex items-center gap-2 bg-black/65 backdrop-blur-sm text-white text-xs font-semibold px-3.5 py-1.5 rounded-full border border-green-400/60 shadow-lg"
+            className="flex items-center gap-2 bg-green-700 text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-lg shadow-black/50"
             animate={{ opacity: [0.9, 1, 0.9] }}
             transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
           >
