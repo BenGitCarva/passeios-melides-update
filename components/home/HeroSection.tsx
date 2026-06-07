@@ -52,10 +52,10 @@ export default function HeroSection() {
             <MapPin size={12} className="text-gold" aria-hidden="true" />
             <span className="text-cream/90 text-xs font-medium tracking-wide">Melides, Alentejo Litoral</span>
           </div>
-          <div className="flex items-center gap-2 bg-green-700 text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-lg shadow-black/50">
+          <div className="flex items-center gap-2 bg-emerald-600/85 text-white text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-lg shadow-black/40">
             <span className="relative flex h-2 w-2 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75 [animation-delay:1.5s]" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-200 opacity-75 [animation-delay:1.5s]" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-300" />
             </span>
             <span>Aberto hoje</span>
           </div>

@@ -71,7 +71,7 @@ export default function ServicesSection() {
                   className="object-cover transition-transform duration-700 group-hover:scale-108"
                   sizes="(max-width:768px) 100vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-espresso/90 via-espresso/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-espresso via-espresso/55 to-espresso/10" />
                 <motion.div
                   className="absolute inset-0 bg-terra/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 />
