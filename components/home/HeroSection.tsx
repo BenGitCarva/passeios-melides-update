@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -25,6 +25,15 @@ const fadeIn = {
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const { scrollY } = useScroll();
   const bgY = useTransform(scrollY, [0, 600], ["0%", "20%"]);
   const contentY = useTransform(scrollY, [0, 400], ["0%", "12%"]);
@@ -33,17 +42,28 @@ export default function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative h-[100dvh] min-h-[640px] flex items-end overflow-hidden"
+      className="relative h-[100svh] md:h-[100dvh] min-h-[640px] flex items-end overflow-hidden"
       aria-label="Secção principal — Passeios a Cavalo Melides"
     >
-      {/* Background image with parallax */}
-      <motion.div className="absolute inset-0" style={{ y: bgY }}>
+      {/* Background image with parallax (parallax disabled on mobile to prevent layout shift) */}
+      <motion.div className="absolute inset-0" style={isDesktop ? { y: bgY } : {}}>
+        {/* Mobile: horse head is at ~10% x / 45% y in the original landscape photo */}
+        <Image
+          src="https://images.unsplash.com/photo-1640262653870-c3f1b394fef9?w=800&q=85&auto=format"
+          alt="Cavaleiro a galopar na praia de Melides ao pôr do sol"
+          fill
+          priority
+          className="block md:hidden"
+          style={{ objectFit: "cover", objectPosition: "10% 45%" }}
+          sizes="100vw"
+        />
+        {/* Desktop: imagem landscape com os dois cavaleiros na praia */}
         <Image
           src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1920&q=85&auto=format&fit=crop"
           alt="Cavaleiros a galopar na praia de Melides ao pôr do sol"
           fill
           priority
-          className="object-cover object-center scale-110"
+          className="object-cover object-center scale-110 hidden md:block"
           sizes="100vw"
         />
       </motion.div>
@@ -72,11 +92,15 @@ export default function HeroSection() {
             <span className="text-cream/90 text-xs font-medium tracking-wide">Melides, Alentejo Litoral</span>
           </div>
           <motion.div
-            className="flex items-center gap-1 text-cream/50 text-xs"
-            animate={{ opacity: [0.5, 1, 0.5] }}
+            className="flex items-center gap-2 bg-black/65 backdrop-blur-sm text-white text-xs font-semibold px-3.5 py-1.5 rounded-full border border-green-400/60 shadow-lg"
+            animate={{ opacity: [0.9, 1, 0.9] }}
             transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-gold inline-block" />
+            <motion.span
+              className="w-2 h-2 rounded-full bg-green-400 inline-block shrink-0 shadow-[0_0_6px_rgba(74,222,128,0.8)]"
+              animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+            />
             <span>Aberto hoje</span>
           </motion.div>
         </motion.div>
