@@ -10,12 +10,12 @@ const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.8, ease } },
+  hidden: { opacity: 0, y: 20 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
 };
 
 const fadeIn = {
@@ -53,24 +53,22 @@ export default function HeroSection() {
     >
       {/* Background image with parallax (parallax disabled on mobile to prevent layout shift) */}
       <motion.div className="absolute inset-0" style={isDesktop ? { y: bgY } : {}}>
-        {/* Mobile: horse head is at ~10% x / 45% y in the original landscape photo */}
+        {/* Mobile: cavalo branco a galopar — crop portrait centrado */}
         <Image
-          src="https://images.unsplash.com/photo-1640262653870-c3f1b394fef9?w=800&q=85&auto=format"
-          alt="Cavaleiro a galopar na praia de Melides ao pôr do sol"
+          src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&h=1400&q=85&auto=format&fit=crop&crop=center"
+          alt="Cavalo branco a galopar na Quinta do Almargem"
           fill
           priority
-          className="block md:hidden"
-          style={{ objectFit: "cover", objectPosition: "right center" }}
+          className="block md:hidden object-cover object-center"
           sizes="100vw"
         />
-        {/* Desktop: imagem landscape com os dois cavaleiros na praia */}
+        {/* Desktop: cavalo branco landscape */}
         <Image
           src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1920&q=85&auto=format&fit=crop"
-          alt="Cavaleiros a galopar na praia de Melides ao pôr do sol"
+          alt="Cavalo branco a galopar na Quinta do Almargem"
           fill
-          priority
           className="object-cover object-center scale-110 hidden md:block"
-          sizes="100vw"
+          sizes="(min-width: 768px) 100vw, 0px"
         />
       </motion.div>
 
@@ -97,18 +95,13 @@ export default function HeroSection() {
             <MapPin size={12} className="text-gold" aria-hidden="true" />
             <span className="text-cream/90 text-xs font-medium tracking-wide">Melides, Alentejo Litoral</span>
           </div>
-          <motion.div
-            className="flex items-center gap-2 bg-green-700 text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-lg shadow-black/50"
-            animate={{ opacity: [0.9, 1, 0.9] }}
-            transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-          >
-            <motion.span
-              className="w-2 h-2 rounded-full bg-green-400 inline-block shrink-0 shadow-[0_0_6px_rgba(74,222,128,0.8)]"
-              animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-            />
+          <div className="flex items-center gap-2 bg-green-700 text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-lg shadow-black/50">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+            </span>
             <span>Aberto hoje</span>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Headline */}
@@ -191,12 +184,9 @@ export default function HeroSection() {
         aria-hidden="true"
       >
         <span className="text-cream/40 text-[10px] tracking-[0.2em] uppercase font-sans">Descobrir</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-        >
+        <div className="animate-bounce">
           <ArrowDown size={16} className="text-cream/40" />
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   );
