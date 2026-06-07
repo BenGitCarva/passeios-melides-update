@@ -60,7 +60,7 @@ export default function HeroSection() {
           fill
           priority
           className="block md:hidden"
-          style={{ objectFit: "cover", objectPosition: "left center" }}
+          style={{ objectFit: "cover", objectPosition: "right center" }}
           sizes="100vw"
         />
         {/* Desktop: imagem landscape com os dois cavaleiros na praia */}
