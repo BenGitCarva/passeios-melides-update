@@ -10,7 +10,7 @@ const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
+  show: { transition: { staggerChildren: 0.14, delayChildren: 0.1 } },
 };
 
 const fadeUp = {
@@ -75,9 +75,9 @@ export default function HeroSection() {
       {/* Gradient overlay */}
       <div className="absolute inset-0 hero-overlay" />
 
-      {/* Grain texture */}
+      {/* Grain texture — hidden on mobile (SVG feTurbulence is CPU-rendered) */}
       <div
-        className="absolute inset-0 opacity-[0.04] bg-repeat pointer-events-none"
+        className="absolute inset-0 opacity-[0.04] bg-repeat pointer-events-none hidden md:block"
         style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }}
       />
 
@@ -97,7 +97,7 @@ export default function HeroSection() {
           </div>
           <div className="flex items-center gap-2 bg-green-700 text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-lg shadow-black/50">
             <span className="relative flex h-2 w-2 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75 [animation-delay:2s]" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
             </span>
             <span>Aberto hoje</span>
@@ -184,7 +184,7 @@ export default function HeroSection() {
         aria-hidden="true"
       >
         <span className="text-cream/40 text-[10px] tracking-[0.2em] uppercase font-sans">Descobrir</span>
-        <div className="animate-bounce">
+        <div className="md:animate-bounce [animation-delay:3s]">
           <ArrowDown size={16} className="text-cream/40" />
         </div>
       </motion.div>
